@@ -2,7 +2,7 @@
 //  main.swift
 //  Calculator
 //
-//  Created by iGuest on 10/7/15.
+//  Created by Jia Yu on 10/7/15.
 //  Copyright (c) 2015 Jia Yu. All rights reserved.
 //
 
@@ -22,21 +22,29 @@ func input() -> String {
     return strData.stringByTrimmingCharactersInSet(NSCharacterSet.newlineCharacterSet())
 }
 
-func convert(incoming:String) -> Int {
+func convertInt(incoming:String) -> Int {
+    
     return NSNumberFormatter().numberFromString(incoming)!.integerValue
+    
+}
+
+func convertDouble(incoming:String) -> Double {
+    
+    return NSNumberFormatter().numberFromString(incoming)!.doubleValue
+    
 }
 
 var inputStr = input()
 
-var result = 0
-
 if inputStr.rangeOfString(" ") == nil {
     
-    var number1 = convert(inputStr)
+    var number1 = convertDouble(inputStr)
     
     var exp = input()
     
-    var number2 = convert(input())
+    var number2 = convertDouble(input())
+    
+    var result = 0.0
     
     switch exp {
         
@@ -61,41 +69,65 @@ if inputStr.rangeOfString(" ") == nil {
         result = number1 % number2
         
     default:
+        
         println("What's the expression?")
     }
+    
+    println("Result:" + String(stringInterpolationSegment: result))
     
 } else {
     
     var myStringArr = inputStr.componentsSeparatedByString(" ")
 
     var exp = myStringArr[myStringArr.count - 1]
+    
+    var result1 = 0
 
     switch exp {
         
         case "count":
         
-            result = myStringArr.count - 1
+            result1 = myStringArr.count - 1
         
         case "avg":
         
             for index in 0...myStringArr.count - 2 {
                 
-                result = result + convert(myStringArr[index])
+                result1 = result1 + convertInt(myStringArr[index])
                 
-        }
+            }
             
-            result = result / (myStringArr.count - 1)
+            result1 = result1 / (myStringArr.count - 1)
         
         case "fact":
         
-    default:
+            if myStringArr.count > 2 {
+                
+                println("Please enter one integer for fact")
+                
+            } else {
+                
+                result1 = 1
+                
+                for index in 1...convertInt(myStringArr[0]) {
+                    
+                    result1 = result1 * index
+                    
+                    println(result1)
+                    
+                }
+                
+            }
         
-        println("What's the expression?")
+        default:
+        
+            println("What's the expression?")
     }
     
+    println("Result:" + String(result1))
 }
 
-println("Result:" + String(result))
+
 
 
 
