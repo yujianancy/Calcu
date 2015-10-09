@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 println("Enter an expression separated by returns:")
 
 func input() -> String {
@@ -36,6 +35,8 @@ func convertDouble(incoming:String) -> Double {
 
 var inputStr = input()
 
+var result = 0.0
+
 if inputStr.rangeOfString(" ") == nil {
     
     var number1 = convertDouble(inputStr)
@@ -43,8 +44,6 @@ if inputStr.rangeOfString(" ") == nil {
     var exp = input()
     
     var number2 = convertDouble(input())
-    
-    var result = 0.0
     
     switch exp {
         
@@ -89,42 +88,55 @@ if inputStr.rangeOfString(" ") == nil {
         
             result1 = myStringArr.count - 1
         
+            println("Result:" + String(result1))
+        
         case "avg":
         
             for index in 0...myStringArr.count - 2 {
                 
-                result1 = result1 + convertInt(myStringArr[index])
+                result = result + convertDouble(myStringArr[index])
                 
             }
             
-            result1 = result1 / (myStringArr.count - 1)
+            result = result / Double(myStringArr.count - 1)
+        
+            println("Result:" + String(stringInterpolationSegment: result))
         
         case "fact":
-        
+            
             if myStringArr.count > 2 {
                 
                 println("Please enter one integer for fact")
                 
             } else {
                 
-                result1 = 1
+                if convertInt(myStringArr[0]) == 0 {
+                    
+                    result1 = 0
+                    
+                } else {
                 
-                for index in 1...convertInt(myStringArr[0]) {
+                    result1 = 1
+                
+                    for index in 1...convertInt(myStringArr[0]) {
                     
-                    result1 = result1 * index
+                        result1 = result1 * index
                     
-                    println(result1)
+                        println(result1)
+                    
+                    }
                     
                 }
                 
             }
+        
+            println("Result:" + String(result1))
         
         default:
         
             println("What's the expression?")
     }
     
-    println("Result:" + String(result1))
 }
 
 
